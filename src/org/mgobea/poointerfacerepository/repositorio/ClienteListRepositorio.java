@@ -3,7 +3,6 @@ package org.mgobea.poointerfacerepository.repositorio;
 import org.mgobea.poointerfacerepository.modelo.Cliente;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ClienteListRepositorio implements CrudRepositorio, OrdenableRepositorio, PaginableRepositorio{
@@ -56,9 +55,9 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
         listOrdered.sort((a, b) -> {
             int resultado = 0;
             if(dir == Direccion.ASC) {
-                resultado = this.ordenar(campo, a, b);
+                resultado = OrdenableRepositorio.ordenar(campo, a, b);
             } else if (dir == Direccion.DESC) {
-                resultado = this.ordenar(campo, b, a);
+                resultado = OrdenableRepositorio.ordenar(campo, b, a);
             }
             return resultado; // Era una interface funcional, pero como tiene un solo método se puede reemplazar con una lambda function.
         });
@@ -71,6 +70,8 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
         return resultado;
     }
 
+    // Este método podría llevarlo como estático en la interfaz OrdenableRepositorio
+    /*
     private int ordenar(String campo, Cliente a, Cliente b) {
         int resultado = 0;
         switch (campo) {
@@ -80,6 +81,7 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
         }
         return resultado;
     }
+    */
 
     // Se llama List porque manejará datos desde una lista, pero podría hacerlo desde cualquier fuente de datos
 }
