@@ -1,5 +1,7 @@
 package org.mgobea.poointerfacerepository.modelo;
 
+import java.util.Objects;
+
 public class Cliente {
     private Integer id;
     private String nombre;
@@ -45,5 +47,17 @@ public class Cliente {
         return "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente cliente)) return false;
+        return Objects.equals(getId(), cliente.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 }
