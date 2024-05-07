@@ -41,6 +41,13 @@ public class EjemploGenericos {
 
         // Uso el método sobrecargado que recibe dos arrays de distinto tipo en otro sentido:
         List<String> saludos2 = fromArrayToList(saludosArray, clientesArray);
+
+        // Uso el método genérico que recibe un array de números y devuelve una lista de números
+        List<Integer> numeros = fromNumberArrayToList(new Integer[]{1, 2, 3, 4, 5}); // Si quisiera pasar un array de Double, Float, etc, también podría hacerlo. Pero no puedo pasar un array de String, por ejemplo. Porque el método está tipado con <T extends Number> que significa que solo acepta clases que extiendan de Number.
+    }
+
+    public static <T extends Number> List<T> fromNumberArrayToList(T[] array) {
+        return Arrays.asList(array);
     }
 
     public static <T> List<T> fromArrayToList(T[] array) {
