@@ -4,7 +4,7 @@ import org.mgobea.poointerfacerepository.modelo.Cliente;
 
 import java.util.List;
 
-public interface FullRepositorio extends CrudRepositorio, OrdenableRepositorio, PaginableRepositorio{
+public interface FullRepositorio extends CrudRepositorio, OrdenableRepositorio, PaginableRepositorio, ContableRepositorio {
     @Override
     List<Cliente> listar();
 
@@ -25,4 +25,7 @@ public interface FullRepositorio extends CrudRepositorio, OrdenableRepositorio, 
 
     @Override
     List<Cliente> listar(int desde, int hasta);
+
+    @Override
+    int total();
 }

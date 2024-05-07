@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteListRepositorio implements FullRepositorio{
-    private List<Cliente> dataSource; // El contenedor de los datos donde vamos a operar
+    final private List<Cliente> dataSource; // El contenedor de los datos donde vamos a operar
 
     public ClienteListRepositorio() {
         this.dataSource = new ArrayList<>();
@@ -68,6 +68,11 @@ public class ClienteListRepositorio implements FullRepositorio{
     public List<Cliente> listar(int desde, int hasta) {
         List<Cliente> resultado = this.dataSource.subList(desde, hasta);
         return resultado;
+    }
+
+    @Override
+    public int total() {
+        return this.dataSource.size(); // Devuelve el tamaño de mi dataSource. La cantidad de registros.
     }
 
     // Este método podría llevarlo como estático en la interfaz OrdenableRepositorio
