@@ -5,7 +5,7 @@ import org.mgobea.poointerfacerepository.modelo.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteListRepositorio implements CrudRepositorio, OrdenableRepositorio, PaginableRepositorio{
+public class ClienteListRepositorio implements FullRepositorio{
     private List<Cliente> dataSource; // El contenedor de los datos donde vamos a operar
 
     public ClienteListRepositorio() {
