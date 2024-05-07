@@ -35,10 +35,30 @@ public class EjemploGenericos {
 
         List<String> saludos = fromArrayToList(saludosArray); // En este caso le paso un array de Strings y antes le pasé un array de Clientes
         saludos.forEach(System.out::println);
+
+        // Uso el método sobrecargado que recibe dos arrays de distinto tipo en un sentido:
+        List<Cliente> clientes2 = fromArrayToList(clientesArray, saludosArray);
+
+        // Uso el método sobrecargado que recibe dos arrays de distinto tipo en otro sentido:
+        List<String> saludos2 = fromArrayToList(saludosArray, clientesArray);
     }
 
     public static <T> List<T> fromArrayToList(T[] array) {
         return Arrays.asList(array); // El problema de este metodo es que el tipo de lista que devuelve es inmutable. Solo será una Lista de Clientes. Si necesitamos una lista de cualquier otro tipo de objeto, no podremos usar este método. De allí la necesidad de usar Genéricos
         // Reemplazando Cliente por T, el método se vuelve genérico. Debo sumar <T> al principio del método.
+    }
+
+    // Método genérico que recibe dos arrays de distinto tipo. Sobrecarga de métodos.
+    public static <T, G> List<T> fromArrayToList(T[] array, G[] array2) {
+        for (G elemento : array2) {
+            System.out.println(elemento);
+        }
+        return Arrays.asList(array);
+        // Explicación detallada de este método estática abajo:
+        /*
+        El método recibe dos arrays de distinto tipo. El primer array es de tipo T y el segundo array es de tipo G.
+        El método recorre el segundo array y muestra por consola cada uno de los elementos.
+        El método devuelve una lista de tipo T, que es el primer array.
+         */
     }
 }
