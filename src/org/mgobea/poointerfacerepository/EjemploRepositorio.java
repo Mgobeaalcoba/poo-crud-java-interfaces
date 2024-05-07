@@ -34,6 +34,7 @@ public class EjemploRepositorio {
 
         listRepo.forEach(System.out::println);
 
+        repo.crear(new Cliente("Jacinto", "Pichimahuida"));
         List<Cliente> listRepo2 = ((OrdenableRepositorio)repo).listar("id", Direccion.DESC); // Tengo que castear porque lo instancie como Crud Repositorio
 
         System.out.println();
@@ -43,6 +44,17 @@ public class EjemploRepositorio {
 
         System.out.println();
         listRepo3.forEach(System.out::println);
+
+        // Edito trayendo el Cliente por id
+        System.out.println();
+        Cliente jacinto = repo.porId(7);
+        jacinto.setNombre("Manuel");
+        jacinto.setApellido("Pichimahuida");
+        repo.editar(jacinto);
+
+        listRepo.forEach(System.out::println);
+        System.out.println();
+        listRepo2.forEach(System.out::println);
     }
 
 

@@ -51,24 +51,18 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
 
     @Override
     public List<Cliente> listar(String campo, Direccion dir) {
-        dataSource.sort((a, b) -> {
+        // No quiero que la lista original se ordene, por eso la copio y retorno la copia:
+        List<Cliente> listOrdered = new ArrayList<>(this.dataSource);
+        listOrdered.sort((a, b) -> {
             int resultado = 0;
             if(dir == Direccion.ASC) {
-                switch (campo) {
-                    case "id" -> resultado = a.getId().compareTo(b.getId());
-                    case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
-                    case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
-                }
+                resultado = this.ordenar(campo, a, b);
             } else if (dir == Direccion.DESC) {
-                switch (campo) {
-                    case "id" -> resultado = b.getId().compareTo(a.getId());
-                    case "nombre" -> resultado = b.getNombre().compareTo(a.getNombre());
-                    case "apellido" -> resultado = b.getApellido().compareTo(a.getApellido());
-                }
+                resultado = this.ordenar(campo, b, a);
             }
             return resultado; // Era una interface funcional, pero como tiene un solo método se puede reemplazar con una lambda function.
         });
-        return this.dataSource;
+        return listOrdered;
     }
 
     @Override
@@ -76,5 +70,16 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
         List<Cliente> resultado = this.dataSource.subList(desde, hasta);
         return resultado;
     }
+
+    private int ordenar(String campo, Cliente a, Cliente b) {
+        int resultado = 0;
+        switch (campo) {
+            case "id" -> resultado = a.getId().compareTo(b.getId());
+            case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
+            case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
+        }
+        return resultado;
+    }
+
     // Se llama List porque manejará datos desde una lista, pero podría hacerlo desde cualquier fuente de datos
 }
