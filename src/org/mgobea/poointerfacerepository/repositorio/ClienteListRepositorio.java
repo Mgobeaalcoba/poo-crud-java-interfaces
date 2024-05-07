@@ -73,7 +73,8 @@ public class ClienteListRepositorio implements CrudRepositorio, OrdenableReposit
 
     @Override
     public List<Cliente> listar(int desde, int hasta) {
-        return List.of();
+        List<Cliente> resultado = this.dataSource.subList(desde, hasta);
+        return resultado;
     }
     // Se llama List porque manejará datos desde una lista, pero podría hacerlo desde cualquier fuente de datos
 }
