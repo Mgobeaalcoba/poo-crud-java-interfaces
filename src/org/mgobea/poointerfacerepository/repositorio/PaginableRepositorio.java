@@ -1,7 +1,5 @@
 package org.mgobea.poointerfacerepository.repositorio;
 
-import org.mgobea.poointerfacerepository.modelo.Cliente;
-
 import java.util.List;
 
 public interface PaginableRepositorio<T> {

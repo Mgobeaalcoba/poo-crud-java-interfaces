@@ -8,14 +8,17 @@ import java.util.List;
 public class EjemploRepositorio {
     public static void main(String[] args) {
 
-        FullRepositorio<Cliente> repo = new ClienteListRepositorio(); // Le doy la mayor abstracción posible a mi repositorio para ganar escalabilidad en el CRUD.
-        repo.crear(new Cliente("Mariano", "Gobea Alcoba"));
+        ClienteListRepositorio repo = new ClienteListRepositorio(); // Le doy la mayor abstracción posible a mi repositorio para ganar escalabilidad en el CRUD.
         repo.crear(new Cliente("Nicole", "Fernandez"));
+        repo.crear(new Cliente("Mariano", "Gobea Alcoba"));
         repo.crear(new Cliente("Lisandro", "Raccio Fernandez"));
         repo.crear(new Cliente("Lautaro", "Gobea Fernandez"));
 
+        // ¿Por qué no funciona el método crear?
+        // Porque el método crear no está implementado en la clase ClienteListRepositorio.
+
         List<Cliente> listRepo = repo.listar();
-        for(Cliente cliente: listRepo) {
+        for (Cliente cliente : listRepo) {
             System.out.println(cliente);
         }
 
@@ -36,12 +39,12 @@ public class EjemploRepositorio {
         listRepo.forEach(System.out::println);
 
         repo.crear(new Cliente("Jacinto", "Pichimahuida"));
-        List<Cliente> listRepo2 = ((OrdenableRepositorio)repo).listar("id", Direccion.DESC); // Tengo que castear porque lo instancie como Crud Repositorio. Dsp de heredar las interfaces no necesito más castear
+        List<Cliente> listRepo2 = ((OrdenableRepositorio) repo).listar("id", Direccion.DESC); // Tengo que castear porque lo instancie como Crud Repositorio. Dsp de heredar las interfaces no necesito más castear
 
         System.out.println();
         listRepo2.forEach(System.out::println);
 
-        List<Cliente> listRepo3 = ((PaginableRepositorio)repo).listar(1,3); // El hasta no se incluye
+        List<Cliente> listRepo3 = ((PaginableRepositorio) repo).listar(1, 3); // El hasta no se incluye
 
         System.out.println();
         listRepo3.forEach(System.out::println);
@@ -57,6 +60,4 @@ public class EjemploRepositorio {
         System.out.println();
         listRepo2.forEach(System.out::println);
     }
-
-
 }

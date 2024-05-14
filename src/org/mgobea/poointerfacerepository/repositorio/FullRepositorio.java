@@ -1,7 +1,5 @@
 package org.mgobea.poointerfacerepository.repositorio;
 
-import org.mgobea.poointerfacerepository.modelo.Cliente;
-
 import java.util.List;
 
 public interface FullRepositorio<T> extends CrudRepositorio<T>, OrdenableRepositorio<T>, PaginableRepositorio<T>, ContableRepositorio {

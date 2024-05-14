@@ -15,6 +15,11 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
     }
 
     @Override
+    public void crear(Cliente cliente) {
+        this.dataSource.add(cliente);
+    }
+
+    @Override
     public List<Cliente> listar() {
         return this.dataSource;
     }
@@ -22,8 +27,8 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
     @Override
     public Cliente porId(Integer id) {
         Cliente resultado = null;
-        for(Cliente cliente: this.dataSource) {
-            if(cliente.getId().equals(id)) { // Es un Integer no primitivo por lo que comparo con equals. Es un wrapper.
+        for (Cliente cliente : this.dataSource) {
+            if (cliente.getId().equals(id)) { // Es un Integer no primitivo por lo que comparo con equals. Es un wrapper.
                 resultado = cliente;
                 break;
             }
@@ -46,15 +51,20 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
     }
 
     @Override
+    public List<Cliente> listar(int desde, int hasta) {
+        return dataSource.subList(desde, hasta);
+    }
+
+    @Override
     public List<Cliente> listar(String campo, Direccion dir) {
         // No quiero que la lista original se ordene, por eso la copio y retorno la copia:
         List<Cliente> listOrdered = new ArrayList<>(this.dataSource);
         listOrdered.sort((a, b) -> {
             int resultado = 0;
-            if(dir == Direccion.ASC) {
-                resultado = OrdenableRepositorio.ordenar(campo, a, b);
+            if (dir == Direccion.ASC) {
+                resultado = ordenar(campo, a, b);
             } else if (dir == Direccion.DESC) {
-                resultado = OrdenableRepositorio.ordenar(campo, b, a);
+                resultado = ordenar(campo, b, a);
             }
             return resultado; // Era una interface funcional, pero como tiene un solo método se puede reemplazar con una lambda function.
         });
