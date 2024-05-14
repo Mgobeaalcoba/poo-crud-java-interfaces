@@ -56,6 +56,21 @@ public class EjemploGenericos {
         // Uso el método genérico que recibe un array de números y devuelve una lista de números
         List<Integer> numeros = fromNumberArrayToList(new Integer[]{1, 2, 3, 4, 5}); // Si quisiera pasar un array de Double, Float, etc, también podría hacerlo. Pero no puedo pasar un array de String, por ejemplo. Porque el método está tipado con <T extends Number> que significa que solo acepta clases que extiendan de Number.
         numeros.forEach(System.out::println);
+
+        // Uso el método estático que recibe 3 objetos que implementen la interfaz Comparable y devuelve el mayor
+        Integer mayor = devolverMayor(1, 2, 3);
+        System.out.println("El mayor es: " + mayor);
+        Integer mayor2 = devolverMayor(3, 2, 1);
+        System.out.println("El mayor es: " + mayor2);
+        Double mayor3 = devolverMayor(2.5, 3.3, 5.5);
+        System.out.println("El mayor es: " + mayor3);
+        String mayor4 = devolverMayor("hola", "mundo", "java");
+        System.out.println("El mayor es: " + mayor4);
+        System.out.println();
+
+        // Pruebo el método imprimirClientes
+        imprimirClientes(new ArrayList<>(List.of(clientesArray2)));
+
     }
 
     public static <T extends Number> List<T> fromNumberArrayToList(T[] array) {
@@ -83,5 +98,23 @@ public class EjemploGenericos {
         El método recorre el segundo array y muestra por consola cada uno de los elementos.
         El método devuelve una lista de tipo T, que es el primer array.
          */
+    }
+
+    // Método estático que recibe una lista de Clientes o sus clases hijas y las imprime por consola:
+    public static void imprimirClientes(List<? extends Cliente> clientes) {
+        // El parámetro de tipo "? extends" Cliente indica que la lista puede ser de Clientes o de sus clases hijas. Se lo conoce como bounded wildcard.
+        clientes.forEach(System.out::println);
+    }
+
+    // Método estático que recibe 3 objetos que implementen la interfaz Comparable y devuelve el mayor
+    public static <T extends Comparable<T>> T devolverMayor(T a, T b, T c) {
+        T mayor = a;
+        if (b.compareTo(mayor) > 0) {
+            mayor = b;
+        }
+        if (c.compareTo(mayor) > 0) {
+            mayor = c;
+        }
+        return mayor;
     }
 }
