@@ -4,27 +4,27 @@ import org.mgobea.poointerfacerepository.modelo.Cliente;
 
 import java.util.List;
 
-public interface FullRepositorio extends CrudRepositorio, OrdenableRepositorio, PaginableRepositorio, ContableRepositorio {
+public interface FullRepositorio<T> extends CrudRepositorio<T>, OrdenableRepositorio<T>, PaginableRepositorio<T>, ContableRepositorio {
     @Override
-    List<Cliente> listar();
+    List<T> listar();
 
     @Override
-    Cliente porId(Integer id);
+    T porId(Integer id);
 
     @Override
-    void crear(Cliente cliente);
+    void crear(T objeto);
 
     @Override
     void eliminar(Integer id);
 
     @Override
-    void editar(Cliente cliente);
+    void editar(T objeto);
 
     @Override
-    List<Cliente> listar(String campo, Direccion dir);
+    List<T> listar(String campo, Direccion dir);
 
     @Override
-    List<Cliente> listar(int desde, int hasta);
+    List<T> listar(int desde, int hasta);
 
     @Override
     int total();

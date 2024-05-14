@@ -7,7 +7,8 @@ import java.util.List;
 
 public class EjemploRepositorio {
     public static void main(String[] args) {
-        FullRepositorio repo = new ClienteListRepositorio(); // Le doy la mayor abstracción posible a mi repositorio para ganar escalabilidad en el CRUD.
+
+        FullRepositorio<Cliente> repo = new ClienteListRepositorio(); // Le doy la mayor abstracción posible a mi repositorio para ganar escalabilidad en el CRUD.
         repo.crear(new Cliente("Mariano", "Gobea Alcoba"));
         repo.crear(new Cliente("Nicole", "Fernandez"));
         repo.crear(new Cliente("Lisandro", "Raccio Fernandez"));

@@ -7,18 +7,19 @@ import java.util.List;
 
 // Transformamos el FullRepositorio en una interface completamente genérica, para que pueda ser utilizada con cualquier tipo de objeto.
 // En este caso, la implementamos con el tipo Cliente, pero podría ser cualquier otro tipo de objeto.
-public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
-    protected List<Cliente> dataSource; // El contenedor de los datos donde vamos a operar
+public abstract class AbstractaListRepositorio<T> implements FullRepositorio<T>{
+    protected List<T> dataSource; // El contenedor de los datos donde vamos a operar
 
-    public ClienteListRepositorio() {
+    public AbstractaListRepositorio() {
         this.dataSource = new ArrayList<>();
     }
 
     @Override
-    public List<Cliente> listar() {
+    public List<T> listar() {
         return this.dataSource;
     }
 
+    /*
     @Override
     public Cliente porId(Integer id) {
         Cliente resultado = null;
@@ -30,7 +31,14 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
         }
         return resultado;
     }
+    */
 
+    @Override
+    public void crear(T t) {
+        this.dataSource.add(t);
+    }
+
+    /*
     @Override
     public void editar(Cliente cliente) {
         Cliente cli = this.porId(cliente.getId());
@@ -44,7 +52,9 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
         Cliente cli = this.porId(id);
         this.dataSource.remove(cli);
     }
+    */
 
+    /*
     @Override
     public List<Cliente> listar(String campo, Direccion dir) {
         // No quiero que la lista original se ordene, por eso la copio y retorno la copia:
@@ -60,12 +70,20 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
         });
         return listOrdered;
     }
+    */
+
+    @Override
+    public List<T> listar(int desde, int hasta) {
+        return dataSource.subList(desde, hasta);
+    }
 
     @Override
     public int total() {
         return this.dataSource.size(); // Devuelve el tamaño de mi dataSource. La cantidad de registros.
     }
 
+    // Este método podría llevarlo como estático en la interfaz OrdenableRepositorio
+    /*
     private int ordenar(String campo, Cliente a, Cliente b) {
         int resultado = 0;
         switch (campo) {
@@ -75,4 +93,7 @@ public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
         }
         return resultado;
     }
+    */
+
+    // Se llama List porque manejará datos desde una lista, pero podría hacerlo desde cualquier fuente de datos
 }
